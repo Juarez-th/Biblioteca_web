@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El rincón del papel - Login</title>
+
+</head>
+<body>
+    <div class="contenedor">
+        <!-- Login -->
+        <div class="pantalla pantalla-login activa">
+            <div class="caja-login">
+                <form class="form-login">
+                    <div class="campo">
+                        <input type="text" id="usuario" class="entrada" placeholder="Nombre de usuario">
+                    </div>
+                    
+                    <div class="campo">
+                        <input type="password" id="clave" class="entrada" placeholder="Contraseña">
+                        <a href="#" class="link-olvido">¿Has olvidado tu contraseña?</a>
+                    </div>
+                    
+                    <div class="linea"></div>
+                    
+                    <button type="submit" class="btn-login">Iniciar Sesión</button>
+                    
+                    <div class="texto-registro" id="ir-registro">Registrarse</div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Registro -->
+        <div class="pantalla pantalla-registro">
+            <div class="caja-registro">
+                <form class="form-registro">
+                    <div class="campo">
+                        <input type="text" id="nuevo-usuario" class="entrada" placeholder="Nombre de usuario">
+                    </div>
+                    
+                    <div class="campo">
+                        <input type="email" id="nuevo-correo" class="entrada" placeholder="Gmail">
+                    </div>
+                    
+                    <div class="campo">
+                        <input type="password" id="nueva-clave" class="entrada" placeholder="Contraseña">
+                    </div>
+                    
+                    <div class="campo">
+                        <input type="password" id="confirmar-clave" class="entrada" placeholder="Confirmar contraseña">
+                    </div>
+                    
+                    <div class="linea"></div>
+                    
+                    <button type="submit" class="btn-registro">Registrarse</button>
+                    
+                    <div class="texto-login" id="ir-login">Volver al Login</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos
+        const pantallaLogin = document.querySelector('.pantalla-login');
+        const pantallaRegistro = document.querySelector('.pantalla-registro');
+        const irRegistro = document.getElementById('ir-registro');
+        const irLogin = document.getElementById('ir-login');
+        
+        // Ir a registro
+        irRegistro.addEventListener('click', function() {
+            pantallaLogin.classList.remove('activa');
+            pantallaLogin.classList.add('oculta');
+            
+            pantallaRegistro.classList.remove('oculta');
+            pantallaRegistro.classList.add('activa');
+        });
+        
+        // Volver a login
+        irLogin.addEventListener('click', function() {
+            pantallaRegistro.classList.remove('activa');
+            pantallaRegistro.classList.add('oculta');
+            
+            pantallaLogin.classList.remove('oculta');
+            pantallaLogin.classList.add('activa');
+        });
+        
+        // Login
+        document.querySelector('.form-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const usuario = document.getElementById('usuario').value;
+            const clave = document.getElementById('clave').value;
+            
+            console.log('Iniciando sesión con:', usuario, clave);
+            
+            setTimeout(function() {
+                window.location.href = 'inicio.html';
+            }, 500);
+        });
+        
+        // Registro
+        document.querySelector('.form-registro').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const usuario = document.getElementById('nuevo-usuario').value;
+            const correo = document.getElementById('nuevo-correo').value;
+            const clave = document.getElementById('nueva-clave').value;
+            const confirmar = document.getElementById('confirmar-clave').value;
+            
+            if (clave !== confirmar) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            
+            console.log('Registrando usuario:', usuario, correo);
+            alert('Registro exitoso');
+            
+            setTimeout(function() {
+                irLogin.click();
+            }, 1000);
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .contenedor {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .pantalla {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        /* login */
+        .pantalla-login {
+            transform: translateX(0);
+            background-image: url('loginweb.gif');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* registro */
+        .pantalla-registro {
+            transform: translateX(100%);
+            background-image: url('registroweb.gif');
+            background-size: cover;
+            background-position: center;
+
+        }
+        
+        .pantalla.activa {
+            transform: translateX(0);
+        }
+        
+        .pantalla.oculta {
+            transform: translateX(-100%);
+        }
+        
+        .caja-login {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            margin-top: 170px;
+            margin-left: 700px;
+        }
+        .caja-registro {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            margin-top: 95px;
+            margin-right: 750px;
+        }
+        
+        .titulo-login, .titulo-registro {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .subtitulo-login, .subtitulo-registro {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .campo {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        .etiqueta {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .entrada {
+            width: 100%;
+            padding: 18px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background-color: #dad8d8;
+        }
+        
+        .entrada:focus {
+            border-color: #8B4513;
+            outline: none;
+        }
+        
+        .link-olvido {
+            display: block;
+            text-align: right;
+            margin-top: 5px;
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .link-olvido:hover {
+            text-decoration: underline;
+        }
+        
+        .linea {
+            height: 1px;
+            background-color: #eee;
+            margin: 25px 0;
+            width: 100%;
+        }
+        
+        .btn-login, .btn-registro {
+            width: 100%;
+            padding: 12px;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 15px;
+        }
+        
+        .btn-login:hover, .btn-registro:hover {
+            background-color: #654321;
+        }
+        
+        .texto-registro, .texto-login {
+            text-align: center;
+            color: #8B4513;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .texto-registro:hover, .texto-login:hover {
+            text-decoration: underline;
+        }
+    </style>
+</body>
+</html>
